@@ -9,7 +9,7 @@ This project sets up a data pipeline to ingest Fitbit data into a TimescaleDB da
 ![host machine metrics](images/grafanahost.png)
 ![container metrics](images/grafanacontainer.png)
 
-![task0a](docs/tasks0.md)
+[Task Documentation](docs/task0.md)
 
 ## How to Run
 Create a virtual env: python -m venv venv and source venv/bin/activate
