@@ -4,11 +4,7 @@ import psycopg2
 import traceback
 from psycopg2 import sql
 
-# ==============================================================================
-# --- THE CONFIGURATION OBJECT ---
-# This dictionary is the "brain" of our engine. It defines how to handle
-# each metric, including its time granularity and the table it lives in.
-# ==============================================================================
+# This dictionary defines how to handle each metric, including its time granularity and the table it lives in
 METRIC_CONFIG = {
         'intraday_heart_rate': {
         'granularity': '1 second',
