@@ -1,0 +1,2 @@
+# Run the ingestion script every 2 minute, #/usr/bin/flock -n /tmp/ingest.lock: This tells flock to try to acquire a lock on the file /tmp/ingest.lock. The -n flag means "don't wait"; if the lock is already held by another process, fail immediately. -c "/app/run_ingestion.sh": If the lock is acquired successfully, run this command.
+*/2 * * * * /usr/bin/flock -n /tmp/ingest.lock -c "/app/run_ingestion.sh" >> /var/log/cron.log 2>&1

@@ -1,0 +1,2 @@
+psycopg2-binary
+wearipedia==0.1.7
