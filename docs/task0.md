@@ -8,6 +8,7 @@ Data points per year for n=1:
 
 Data points per year for n=1,000:
 126,144,000 datapoints/person * 1,000 people = 126,144,000,000 datapoints
+
 Scaling for study duration (for n=1,000):
 1 Year: 126.144 billion data points
 2 Years: 126.144 billion * 2 = 252.288 billion data points
@@ -26,10 +27,10 @@ metric_name: ~16 bytes (string, e.g., 'heart_rate')
 value: 8 bytes (float)
 Total: ~40 bytes per data point
 Uncompressed data for n=1,000 / 2 years / 3 metrics:
-1,000 users * (31,536,000 seconds/year * 2 years) * 3 metrics * 40 bytes/point = 7,568,640,000,000bytes approx 7.57TB
+1,000 users * (31,536,000 seconds/year * 2 years) * 4 metrics * 40 bytes/point = 10,009,152,000,000bytes approx 10TB
 
 Compressed data (80% compression):
-7.57TB * (1−0.80) = 1.514TB
+10TB * (1−0.80) = 9.8TB
 Time-series databases are good for time-series data and can achieve high compression ratios through techniques like:
 - Delta-of-delta encoding: Storing the difference between changes in values rather than the absolute values
 - there are compression techniques for floating-point data and dictionary compression for repeating string values
