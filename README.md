@@ -25,14 +25,14 @@ Create a virtual env: python -m venv venv and source venv/bin/activate
     ```bash
     docker-compose up --build
     ```
-This will start the TimescaleDB database and run the ingestion script to load the data.
-If needed to restart from the beginning: recommeded to ./cleanup.sh to restart the docker containers and database from beginning to avoid conflicts
+This will start the TimescaleDB database and run the ingestion script to load the data
+After the frontend and backend are loaded, wait for 2 minutes for the first set of data to get ingested and loaded to the database
+Then open http://localhost:3000 to see the dashboard
+If needed to restart from the beginning: recommeded to ./cleanup.sh to restart the docker containers and databases from beginning to avoid conflicts
 
-Open Grafana in your browser at http://localhost:3001. Log in with username admin and password admin.
-Add Prometheus as a Data Source:
-In the "Prometheus server URL" field, enter http://prometheus:9090.
-Import a Dashboard with "Prometheus" data source from the dropdown and click Import.
-In the "Import via grafana.com" box, enter the ID 193 for Docker monitoring
+Open Grafana at http://localhost:3001. Log in with username admin and password admin
+The visualization options will be available after login and are all automatically loaded without creating any new dashboards
+
 
 5. run the impute.py script after the ingestion completes and imputation works with TimescaleDB simple interpolation, a advantage of using timescaledb for timeseries data
    **Run the impute service:**
