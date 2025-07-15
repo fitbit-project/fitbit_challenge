@@ -1,1 +1,34 @@
 # fitbit_challenge
+
+# Fitbit Data Pipeline
+
+## Overview
+
+This project sets up a data pipeline to ingest Fitbit data into a TimescaleDB database using Docker.
+
+![Dashboard](images/dashboard.png)
+![application metrics](images/grafanaapp.png)
+![host machine metrics](images/grafanahost.png)
+![container metrics](images/grafanacontainer.png)
+
+
+
+## How to Run
+
+1.  **Prerequisites:** Docker and Docker Compose must be installed.
+2. npm install (once to generate the package-lock.json)
+3. chmod +x cleanup.sh to make the script executable
+4.  **Run the service:**
+    ```bash
+    docker-compose up --build
+    ```
+This will start the TimescaleDB database and run the ingestion script to load the data.
+Recommeded to ./cleanup.sh to restart the dockercontainer and database from beginning to avoid conflicts
+
+Open Grafana in your browser at http://localhost:3001. Log in with username admin and password admin.
+Add Prometheus as a Data Source:
+In the "Prometheus server URL" field, enter http://prometheus:9090.
+Import a Dashboard with "Prometheus" data source from the dropdown and click Import.
+In the "Import via grafana.com" box, enter the ID 193 for Docker monitoring
+
+5. run the impute.py script after the ingestion completes and run within docker-compose to impute with simple interploation, a advantage of using timescaledb for timeseries data
