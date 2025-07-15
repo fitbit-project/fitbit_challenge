@@ -30,3 +30,12 @@ Import a Dashboard with "Prometheus" data source from the dropdown and click Imp
 In the "Import via grafana.com" box, enter the ID 193 for Docker monitoring
 
 5. run the impute.py script after the ingestion completes and run within docker-compose to impute with simple interploation, a advantage of using timescaledb for timeseries data
+
+Some notes:
+- the parsing and ingestion works with intraday_heart_rate, intraday_spo2, intraday_activity, azm, sleep, breathing_rate, intraday_hrv
+- The ingestion is set to run every 2 minutes and ingests one day's data every 2 minutes
+- aggregates of 1d, 1min, 1hr tables have been created and gets updated regulary as per the scheduler
+- pagination/chunking has been implemented when data is requested to frontend for better performance
+- impute.py is still under development
+- impute.py script should only be run at the end of the complete ingestion for data analysis only, otherwise conflicts can arise as data is getting ingested real time
+- 
