@@ -14,8 +14,7 @@ This project sets up a data pipeline to ingest Fitbit data into a TimescaleDB da
 ![container metrics](images/grafanacontainer.png)
 
 Fitbit Challenge Answers:
-[Task 0.a](docs/task0.md)
-
+[Task 0.a](docs/task0.md)  
 [Task 0.b](fitbit_example.ipynb)
 
 ## How to Run
