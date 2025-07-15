@@ -1,0 +1,20 @@
+groups:
+  - name: general_alerts
+    rules:
+      - alert: HostOutOfMemory
+        expr: (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) * 100 < 10
+        for: 2m
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Host out of memory (instance {{ $labels.instance }})"
+          description: "Node memory is less than 10% for more than 2 minutes."
+
+      - alert: ContainerDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: "critical"
+        annotations:
+          summary: "Container down (instance {{ $labels.instance }})"
+          description: "Service {{ $labels.job }} is down."
