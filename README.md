@@ -10,7 +10,7 @@ This project sets up a data pipeline to ingest Fitbit data into a TimescaleDB da
 ![application metrics](images/grafanaapp.png)
 # Host Machine Metrics with Grafana
 ![host machine metrics](images/grafanahost.png)
-# Continer Metrics with Grafana
+# Container Metrics with Grafana
 ![container metrics](images/grafanacontainer.png)
 
 Fitbit Challenge Answers:
