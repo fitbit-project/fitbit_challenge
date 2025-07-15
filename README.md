@@ -4,11 +4,16 @@
 
 This project sets up a data pipeline to ingest Fitbit data into a TimescaleDB database using Docker.
 
+# Health Metrics Visualization
 ![Dashboard](images/dashboard.png)
+# Application Metrics with Grafana
 ![application metrics](images/grafanaapp.png)
+# Host Machine Metrics with Grafana
 ![host machine metrics](images/grafanahost.png)
+# Continer Metrics with Grafana
 ![container metrics](images/grafanacontainer.png)
 
+Fitbit Challenge Answers:
 [Task 0.a](docs/task0.md)
 
 ## How to Run
