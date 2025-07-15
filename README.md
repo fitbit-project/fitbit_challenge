@@ -1,5 +1,3 @@
-# fitbit_challenge
-
 # Fitbit Data Pipeline
 
 ## Overview
