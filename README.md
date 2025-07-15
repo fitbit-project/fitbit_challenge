@@ -34,7 +34,12 @@ In the "Prometheus server URL" field, enter http://prometheus:9090.
 Import a Dashboard with "Prometheus" data source from the dropdown and click Import.
 In the "Import via grafana.com" box, enter the ID 193 for Docker monitoring
 
-5. run the impute.py script after the ingestion completes and run within docker-compose to impute with simple interploation, a advantage of using timescaledb for timeseries data
+5. run the impute.py script after the ingestion completes and imputation works with TimescaleDB simple interpolation, a advantage of using timescaledb for timeseries data
+   **Run the impute service:**
+    ```bash
+    docker-compose up -d
+    docker-compose exec ingestion python3 /app/impute.py
+    ```
 
 Some notes:
 - currently the application depends completely on wearipedia library's synthetic data and its extensible to incoporate real data
