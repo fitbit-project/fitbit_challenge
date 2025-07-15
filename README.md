@@ -21,7 +21,7 @@ Create a virtual env: python -m venv venv and source venv/bin/activate
     docker-compose up --build
     ```
 This will start the TimescaleDB database and run the ingestion script to load the data.
-Recommeded to ./cleanup.sh to restart the dockercontainer and database from beginning to avoid conflicts
+If needed to restart from the beginning: recommeded to ./cleanup.sh to restart the docker containers and database from beginning to avoid conflicts
 
 Open Grafana in your browser at http://localhost:3001. Log in with username admin and password admin.
 Add Prometheus as a Data Source:
@@ -32,10 +32,12 @@ In the "Import via grafana.com" box, enter the ID 193 for Docker monitoring
 5. run the impute.py script after the ingestion completes and run within docker-compose to impute with simple interploation, a advantage of using timescaledb for timeseries data
 
 Some notes:
-- the parsing and ingestion works with intraday_heart_rate, intraday_spo2, intraday_activity, azm, sleep, breathing_rate, intraday_hrv
-- The ingestion is set to run every 2 minutes and ingests one day's data every 2 minutes
-- aggregates of 1d, 1min, 1hr tables have been created and gets updated regulary as per the scheduler
+- currently the application depends completely on wearipedia library's synthetic data and its extensible to incoporate real data
+- during the intial setup a user database will be created and three user records will be added to simulate
+- the parsing and ingestion works with intraday_heart_rate, intraday_spo2, intraday_activity, azm, sleep, breathing_rate, intraday_hrv and it happens currently for three users with user_ids 1, 2, 3
+- ingestion is set to run every 2 minutes and ingests one day's data every 2 minutes. A state file is created automatically on the first day to store the current days ingestion
+- aggregates of 1d, 1min, 1hr tables have been created and gets updated regulary as per the scheduler and used to render frontend and data analysis
 - pagination/chunking has been implemented when data is requested to frontend for better performance
 - impute.py is still under development
 - impute.py script should only be run at the end of the complete ingestion for data analysis only, otherwise conflicts can arise as data is getting ingested real time
-- Currently the application depends completely on wearipedia library's synthetic data. Extensible to incoporate real data
+- 
