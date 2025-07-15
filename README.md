@@ -38,4 +38,4 @@ Some notes:
 - pagination/chunking has been implemented when data is requested to frontend for better performance
 - impute.py is still under development
 - impute.py script should only be run at the end of the complete ingestion for data analysis only, otherwise conflicts can arise as data is getting ingested real time
-- 
+- Currently the application depends completely on wearipedia library's synthetic data. Extensible to incoporate real data
