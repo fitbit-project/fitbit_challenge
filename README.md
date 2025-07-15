@@ -15,7 +15,16 @@ This project sets up a data pipeline to ingest Fitbit data into a TimescaleDB da
 
 Fitbit Challenge Answers:  
 [Task 0.a](docs/task0.md)  
-[Task 0.b](fitbit_example.ipynb)
+[Task 0.b](fitbit_example.ipynb)  
+[Task 1,3](ingeston/ingest.py)  
+[Task 2,3,4](backend/main.py)  
+[Task 4](impute.py)  
+[Task 4](frontend/src/App.js)  
+[Task 5](monitoring)  
+[Task 5](grafana)  
+
+
+
 
 ## How to Run
 Create a virtual env: python -m venv venv and source venv/bin/activate
