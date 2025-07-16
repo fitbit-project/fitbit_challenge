@@ -50,9 +50,9 @@ cd fitbit_challenge
     ```
 This will start the TimescaleDB database and run the ingestion script to load the data  
 After the frontend and backend are loaded, wait for 2 minutes for the first set of data to get ingested and loaded to the database  
-Then open http://localhost:3000 to see the dashboard  
+Then open `localhost:3000` to see the dashboard  
 If needed to restart from the beginning: recommeded to ./cleanup.sh to restart the docker containers and databases from beginning to avoid conflicts  
-Open Grafana at http://localhost:3001. Log in with username admin and password admin  
+Open Grafana at `localhost:3001` and log in with username admin and password admin  
 The visualization options will be available after login and are all automatically loaded without creating any new dashboards  
 6. run the impute.py script after the ingestion completes and imputation works with timescaleDB's inbuild interpolation, an advantage of using timescaledb for timeseries data  
    **Run the impute service:**
