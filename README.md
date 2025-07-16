@@ -28,10 +28,12 @@ Fitbit Challenge Answers:
 
 ## How to Run
 **Create a virtual env**
-    ```bash
+     ```bash
     python -m venv venv
+    '''
+    '''bash
     source venv/bin/activate
-    ```
+     ```
 1.  **Prerequisites:** Docker and Docker Compose must be installed.
 2. npm install (once to generate the package-lock.json)
 3. chmod +x cleanup.sh to make the script executable
