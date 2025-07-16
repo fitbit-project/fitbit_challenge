@@ -1,6 +1,8 @@
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Issues](https://img.shields.io/github/issues/fitbit-project/fitbit_challenge)
 ![Pull Requests](https://img.shields.io/github/issues-pr/fitbit-project/fitbit_challenge)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/w/fitbit-project/fitbit_challenge)
+![GitHub last commit](https://img.shields.io/github/last-commit/fitbit-project/fitbit_challenge)
 # Fitbit Data Pipeline
 
 ## Overview
