@@ -36,8 +36,9 @@ Fitbit Challenge Answers:
 2. npm install (once to generate the package-lock.json)
 3. chmod +x cleanup.sh to make the script executable
 4.  **Run the service:**
-    <pre lang="md"> <code> ```bash docker-compose up -d docker-compose exec ingestion python3 /app/impute.py ``` </code> </pre>
+    ```
     docker-compose up --build
+    
 
 This will start the TimescaleDB database and run the ingestion script to load the data  
 After the frontend and backend are loaded, wait for 2 minutes for the first set of data to get ingested and loaded to the database  
