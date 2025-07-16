@@ -28,9 +28,10 @@ Fitbit Challenge Answers:
 
 ## How to Run
 **Create a virtual env:**
-<pre lang="md"> <code> ```bash docker-compose up -d docker-compose exec ingestion python3 /app/impute.py ``` </code> </pre>
+
     python -m venv venv
     source venv/bin/activate
+    
 1.  **Prerequisites:** Docker and Docker Compose must be installed.
 2. npm install (once to generate the package-lock.json)
 3. chmod +x cleanup.sh to make the script executable
