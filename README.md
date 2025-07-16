@@ -29,7 +29,7 @@ Fitbit Challenge Answers:
 ## How to Run
 Create a virtual env
     ```bash
-    python -m venv venv
+    python -m venv venv  
     source venv/bin/activate
     ```
 1.  **Prerequisites:** Docker and Docker Compose must be installed.
