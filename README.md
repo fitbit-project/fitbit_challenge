@@ -29,7 +29,7 @@ Fitbit Challenge Answers:
 ## How to Run
 **Create a virtual env:**
 <pre lang="md"> <code> ```bash docker-compose up -d docker-compose exec ingestion python3 /app/impute.py ``` </code> </pre>
-    ```bash
+    ```
     python -m venv venv
     source venv/bin/activate
     ```
