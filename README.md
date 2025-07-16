@@ -44,7 +44,7 @@ cd fitbit_challenge
     source venv/bin/activate
     ```
 2. **Prerequisites:** Docker and Docker Compose must be installed  
-3.  npm install (once to generate the package-lock.json)  
+3.  npm install (once to generate the package-lock.json) and `pip install -r requirements.txt` to install all required python packages
 4. chmod +x cleanup.sh to make the script executable  
 5.  **Run the service:**
 
