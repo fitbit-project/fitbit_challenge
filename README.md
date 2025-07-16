@@ -50,10 +50,10 @@ The visualization options will be available after login and are all automaticall
 
 5. run the impute.py script after the ingestion completes and imputation works with TimescaleDB simple interpolation, a advantage of using timescaledb for timeseries data
    **Run the impute service:**
-   
+   ```
     docker-compose up -d
     docker-compose exec ingestion python3 /app/impute.py
-
+   ```
 Some notes:
 - currently the application depends completely on wearipedia library's synthetic data and its extensible to incoporate real data
 - during the intial setup a user database will be created and three user records will be added to simulate
