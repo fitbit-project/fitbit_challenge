@@ -74,8 +74,20 @@ Some notes:
 - impute.py is still under development
 - impute.py script should only be run at the end of the complete ingestion for data analysis only, otherwise conflicts can arise as data is getting ingested real time and impute engine may work on uningested data
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 To get started, please read our [contributing guidelines](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 We look forward to your contributions!
+
+## License
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+---
+
+## Contact
+
+Moses - [@Github](https://github.com/fitbit-project/fitbit_challenge/issues)
+
+Project Link: [https://github.com/fitbit-project/fitbit_challenge](https://github.com/fitbit-project/fitbit_challenge)
