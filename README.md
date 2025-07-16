@@ -1,3 +1,6 @@
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Issues](https://img.shields.io/github/issues/fitbit-project/fitbit_challenge)
+![Pull Requests](https://img.shields.io/github/issues-pr/fitbit-project/fitbit_challenge)
 # Fitbit Data Pipeline
 
 ## Overview
@@ -70,3 +73,9 @@ Some notes:
 - Pagination/chunking has been implemented when data is requested to frontend for better performance
 - impute.py is still under development
 - impute.py script should only be run at the end of the complete ingestion for data analysis only, otherwise conflicts can arise as data is getting ingested real time and impute engine may work on uningested data
+
+## 🤝 Contributing
+
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+To get started, please read our [contributing guidelines](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+We look forward to your contributions!
