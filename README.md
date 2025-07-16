@@ -36,9 +36,9 @@ Fitbit Challenge Answers:
 2. npm install (once to generate the package-lock.json)
 3. chmod +x cleanup.sh to make the script executable
 4.  **Run the service:**
-    ```bash
+    <pre lang="md"> <code> ```bash docker-compose up -d docker-compose exec ingestion python3 /app/impute.py ``` </code> </pre>
     docker-compose up --build
-    ```
+
 This will start the TimescaleDB database and run the ingestion script to load the data  
 After the frontend and backend are loaded, wait for 2 minutes for the first set of data to get ingested and loaded to the database  
 Then open http://localhost:3000 to see the dashboard  
@@ -50,10 +50,9 @@ The visualization options will be available after login and are all automaticall
 
 5. run the impute.py script after the ingestion completes and imputation works with TimescaleDB simple interpolation, a advantage of using timescaledb for timeseries data
    **Run the impute service:**
-    ```bash
+   
     docker-compose up -d
     docker-compose exec ingestion python3 /app/impute.py
-    ```
 
 Some notes:
 - currently the application depends completely on wearipedia library's synthetic data and its extensible to incoporate real data
