@@ -39,7 +39,6 @@ Fitbit Challenge Answers:
     ```
     docker-compose up --build
     
-
 This will start the TimescaleDB database and run the ingestion script to load the data  
 After the frontend and backend are loaded, wait for 2 minutes for the first set of data to get ingested and loaded to the database  
 Then open http://localhost:3000 to see the dashboard  
