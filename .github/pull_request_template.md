@@ -9,5 +9,6 @@ Fixes #(issue)
 - [ ] Documentation update
 
 ## Checklist:
-- [ ] My code follows the style guidelines of this project.
-- [ ] I have performed a self-review of my own code.
+- [ ] My code follows the style guidelines of this project
+- [ ] I have performed a self-review of my own code
+- [ ] My changes are in a separate branch, not my `main` branch
