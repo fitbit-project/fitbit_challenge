@@ -27,6 +27,12 @@ Fitbit Challenge Answers:
 
 
 ## How to Run
+**Clone the repo and cd into it**
+
+```
+git clone https://github.com/fitbit-project/fitbit_challenge.git
+cd fitbit_challenge
+```
 1. **Create a virtual env:**
 
     ```
