@@ -30,8 +30,8 @@ Fitbit Challenge Answers:
 **Create a virtual env**
      ```bash
     python -m venv venv
-    '''
-    '''bash
+    ```
+    ```bash
     source venv/bin/activate
      ```
 1.  **Prerequisites:** Docker and Docker Compose must be installed.
