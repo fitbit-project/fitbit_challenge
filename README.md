@@ -44,8 +44,8 @@ cd fitbit_challenge
     source venv/bin/activate
     ```
 2. **Prerequisites:** Docker and Docker Compose must be installed  
-3.  npm install (once to generate the package-lock.json) and `pip install -r requirements.txt` to install all required python packages
-4. chmod +x cleanup.sh to make the script executable  
+3.  `npm install` (once to generate the package-lock.json) and `pip install -r requirements.txt` to install all required python packages
+4. `chmod +x cleanup.sh` to make the script executable  
 5.  **Run the service:**
 
     ```
@@ -54,7 +54,7 @@ cd fitbit_challenge
 This will start the TimescaleDB database and run the ingestion script to load the data  
 After the frontend and backend are loaded, wait for 2 minutes for the first set of data to get ingested and loaded to the database  
 Then open `localhost:3000` to see the dashboard  
-If needed to restart from the beginning: recommeded to ./cleanup.sh to restart the docker containers and databases from beginning to avoid conflicts  
+If needed to restart from the beginning: recommeded to `./cleanup.sh` to restart the docker containers and databases from beginning to avoid conflicts  
 Open Grafana at `localhost:3001` and log in with username admin and password admin  
 The visualization options will be available after login and are all automatically loaded without creating any new dashboards  
 6. run the impute.py script after the ingestion completes and imputation works with timescaleDB's inbuild interpolation, an advantage of using timescaledb for timeseries data  
