@@ -39,9 +39,9 @@ cd fitbit_challenge
     python -m venv venv
     source venv/bin/activate
     ```
-2. **Prerequisites:** Docker and Docker Compose must be installed.
-3.  npm install (once to generate the package-lock.json)
-4. chmod +x cleanup.sh to make the script executable
+2. **Prerequisites:** Docker and Docker Compose must be installed  
+3.  npm install (once to generate the package-lock.json)  
+4. chmod +x cleanup.sh to make the script executable  
 5.  **Run the service:**
 
     ```
@@ -69,4 +69,3 @@ Some notes:
 - Pagination/chunking has been implemented when data is requested to frontend for better performance
 - impute.py is still under development
 - impute.py script should only be run at the end of the complete ingestion for data analysis only, otherwise conflicts can arise as data is getting ingested real time and impute engine may work on uningested data
-- 
