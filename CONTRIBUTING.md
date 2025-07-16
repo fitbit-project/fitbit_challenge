@@ -45,8 +45,6 @@ Ready to start coding? Here's how to get the project set up locally.
 2.  Install the dependencies. (e.g., `npm install`)
 3.  Run the development server. (e.g., `docker-compose up --build`)
 
-*(Note: Please adapt the setup instructions above to your specific project's technology stack).*
-
 ## Styleguides
 
 Please ensure your code adheres to the project's coding style. We use linters and formatters (like ESLint or Prettier) to maintain code quality. Run the linter before submitting your PR to catch any issues.
