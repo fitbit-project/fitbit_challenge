@@ -1,27 +1,13 @@
-## Pull Request Overview
+## Description
+Please include a summary of the change and which issue is fixed.
 
-- [ ] This PR addresses issue #<issue_number>
-- [ ] This is a feature/bugfix/refactor/docs update (choose one)
+Fixes #(issue)
 
-### Description
+## Type of change
+- [ ] Bug fix
+- [ ] New feature
+- [ ] Documentation update
 
-<!-- A brief description of what your PR does -->
-
-### Checklist
-
-- [ ] I have tested the code and it works as expected
-- [ ] I have updated documentation (if applicable)
-- [ ] I have added/updated tests (if applicable)
-- [ ] My code follows the project's code style and guidelines
-
-### Screenshots / Logs (if applicable)
-
-<!-- Add screenshots or logs to help understand the change -->
-
-### Review Notes
-
-<!-- Mention areas you’d like feedback on, or reviewers to focus on -->
-
-### Reviewers
-
-<!-- Tag specific people for review if needed -->
+## Checklist:
+- [ ] My code follows the style guidelines of this project.
+- [ ] I have performed a self-review of my own code.
