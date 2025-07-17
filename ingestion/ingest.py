@@ -439,18 +439,19 @@ def ingest_data(conn):
 if __name__ == "__main__":
 
     # Setup Prometheus metrics and registry
-    registry = CollectorRegistry()
+    error_registry = CollectorRegistry()
+    latency_registry = CollectorRegistry()
     
     INGESTION_LATENCY = Gauge(
         'ingestion_latency_seconds', 
         'Duration of the last ingestion job in seconds', 
-        registry=registry
+        registry=latency_registry
     )
-    INGESTION_ERRORS = Counter(
-        'ingestion_errors_total',
-        'Total number of failed ingestion jobs',
-        registry=registry
-    )
+    # Define the counter with a 'error_id' label
+    INGESTION_ERRORS = Counter('ingestion_errors_total', 
+                               'Total number of failed ingestion jobs', 
+                               ['error_id'], 
+                               registry=error_registry)
 
     start_time = time.time()
 
@@ -478,7 +479,11 @@ if __name__ == "__main__":
         ingest_data(connection)
     except Exception:
         # If any error occurs in the main block, increment the error counter
-        INGESTION_ERRORS.inc()
+        error_id = datetime.now().isoformat()
+        # Apply the unique label before incrementing
+        INGESTION_ERRORS.labels(error_id=error_id).inc()
+        push_to_gateway('pushgateway:9091', job='ingestion_job_errors', registry=error_registry, 
+                            grouping_key={'error_id': error_id} if error_id else {})
         print("A critical error occurred during ingestion:")
         traceback.print_exc()
     finally:
@@ -487,8 +492,8 @@ if __name__ == "__main__":
         INGESTION_LATENCY.set(duration) # Set the gauge to the duration of this job
         try:
             # Push all metrics from our custom registry to the Pushgateway
-            push_to_gateway('pushgateway:9091', job='ingestion_job', registry=registry)
-            print(f"Successfully pushed metrics to Pushgateway. Latency: {duration:.2f}s")
+            push_to_gateway('pushgateway:9091', job='ingestion_job_latency', registry=latency_registry)
+            print(f"Successfully pushed latency metric. Latency: {duration:.2f}s")
         except Exception as e:
             print(f"Failed to push metrics to Pushgateway: {e}")
         if connection:
