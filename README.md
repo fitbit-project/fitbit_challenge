@@ -19,6 +19,7 @@ This project sets up a data pipeline to ingest Fitbit data into a TimescaleDB da
 ![container metrics](images/grafanacontainer.png)
 # Email Notification for different alert labels
 ![Email Simulation](images/emailsimulation.png)
+![Email Simulation](images/emailsimulation1.png)
 
 Fitbit Challenge Answers:  
 [Task 0.a](docs/task0.md)  
