@@ -114,6 +114,13 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     depends_on:
       - prometheus
+
+  mailhog:
+    image: mailhog/mailhog:v1.0.1
+    container_name: mailhog
+    ports:
+      - "1025:1025" # SMTP port for AlertManager to connect to
+      - "8025:8025" # Web UI port for you to view emails
   
   pushgateway:
     image: prom/pushgateway:v1.6.0
