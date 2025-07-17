@@ -1,20 +1,24 @@
 groups:
-  - name: general_alerts
+  - name: ingestion_alerts
     rules:
-      - alert: HostOutOfMemory
-        expr: (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) * 100 < 10
-        for: 2m
-        labels:
-          severity: "warning"
-        annotations:
-          summary: "Host out of memory (instance {{ $labels.instance }})"
-          description: "Node memory is less than 10% for more than 2 minutes."
-
-      - alert: ContainerDown
-        expr: up == 0
+      # Alert rule for when an ingestion job fails
+      - alert: IngestionJobFailed
+        # This expression fires if the 'ingestion_errors_total' counter has increased in the last 5 minutes.
+        expr: count(count_over_time(ingestion_errors_total[5m])) > 0
         for: 1m
         labels:
           severity: "critical"
         annotations:
-          summary: "Container down (instance {{ $labels.instance }})"
-          description: "Service {{ $labels.job }} is down."
+          summary: "Fitbit ingestion job failed"
+          description: "The ingestion job for job '{{ $labels.job }}' has failed. Check the logs for errors."
+
+      # Alert rule for when an ingestion job takes too long
+      - alert: IngestionJobHighLatency
+        # This expression fires if the last recorded job duration was over 60 seconds.
+        expr: ingestion_latency_seconds > 60
+        for: 1m
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Fitbit ingestion job has high latency"
+          description: "The last ingestion job took {{ $value | humanizeDuration }} to complete, which is over the 60s threshold."
