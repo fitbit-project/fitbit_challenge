@@ -1,19 +1,23 @@
 global:
   resolve_timeout: 5m
-  # Placeholder for a real SMTP server configuration
-  smtp_from: 'alertmanager@example.com'
-  smtp_smarthost: 'localhost:1025' # This would be a real server e.g., smtp.gmail.com:587
-  smtp_require_tls: false
+  # Configure the SMTP server to point to our MailHog container
+  smtp_from: 'alertmanager@fitbit.pipeline'
+  smtp_smarthost: 'mailhog:1025' # Use the service name and SMTP port for MailHog
+  smtp_require_tls: false # MailHog does not use TLS
 
 route:
-  group_by: ['alertname', 'job']
-  group_wait: 30s
-  group_interval: 5m
+  # Group alerts by their name to avoid spam
+  group_by: ['alertname']
+  # Wait 10 seconds to buffer alerts of the same group
+  group_wait: 10s
+  # Send a new notification if an alert remains active for 1 hour
   repeat_interval: 1h
+  # The default receiver for all alerts
   receiver: 'email-notifications'
 
 receivers:
 - name: 'email-notifications'
   email_configs:
   - to: 'admin@wearipedia.com'
+    # Send a notification when an alert is resolved
     send_resolved: true
