@@ -75,7 +75,7 @@ Some notes:
 - During the intial setup a user database will be created and three user records will be added to simulate
 - The parsing and ingestion works with intraday_heart_rate, intraday_spo2, intraday_activity, azm, sleep, breathing_rate, intraday_hrv and it happens currently for three users with user_ids 1, 2, 3
 - Ingestion is set to run every 2 minutes and ingests one day's data every 2 minutes. A state file is created automatically on the first day to store the current days ingestion. This is equvalent to simulating a real data's ingestion of one day's data ingesting every day once at a particular time. The reason I set ingestion to 2min is to test ingestion rather than waiting for a day to ingest next day's data
-- Aggregates of 1d, 1min, 1hr tables have been created and gets updated regulary as per the scheduler and used to render frontend and data analysis
+- Aggregates of 1d, 1min, 1hr tables have been created and gets updated regularly as per the scheduler and used to render frontend and data analysis
 - Pagination/chunking has been implemented when data is requested to frontend for better performance
 - impute.py is still under development
 - impute.py script should only be run at the end of the complete ingestion for data analysis only, otherwise conflicts can arise as data is getting ingested real time and impute engine may work on uningested data
