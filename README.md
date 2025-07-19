@@ -12,7 +12,7 @@ This project sets up a data pipeline to ingest Fitbit data into a TimescaleDB da
 # Health Metrics Visualization
 ![Dashboard](images/dashboard.png)
 # Application Metrics with Grafana
-![application metrics](images/grafanaapp.png)
+![application metrics](images/grafanaapp1.png)
 # Host Machine Metrics with Grafana
 ![host machine metrics](images/grafanahost1.png)
 # Container Metrics with Grafana
@@ -21,6 +21,8 @@ This project sets up a data pipeline to ingest Fitbit data into a TimescaleDB da
 # Email Notification for different alert labels
 ![Email Simulation](images/emailsimulation.png)
 ![Email Simulation](images/emailsimulation1.png)
+![Email Simulation](images/emailsimulation2.png)
+![Email Simulation](images/emailsimulation3.png)
 
 Fitbit Challenge Answers:  
 [Task 0.a](docs/task0.md)  
