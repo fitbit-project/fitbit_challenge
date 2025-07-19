@@ -260,24 +260,35 @@ def create_hypertable(conn):
 def update_aggregates(conn, day_to_process_str):
     """Calculate and insert/update aggregates for a specific day."""
     print(f"Updating aggregates for date: {day_to_process_str}...")
-    with conn.cursor() as cur:
-        for interval in ['1m', '1h', '1d']:
-            table_name = f"data_{interval}" # e.g., data_1m
-            cur.execute(f"""
-                INSERT INTO {table_name} (time, user_id, metric_name, avg_value)
-                SELECT
-                    time_bucket('{interval}', time),
-                    user_id,
-                    metric_name,
-                    AVG(value)
-                FROM fitbit_data
-                WHERE time >= %s::date AND time < (%s::date + '1 day'::interval) AND is_imputed = FALSE
-                GROUP BY 1, 2, 3
-                ON CONFLICT (time, user_id, metric_name) DO UPDATE
-                SET avg_value = EXCLUDED.avg_value;
-            """, (day_to_process_str, day_to_process_str))
-    conn.commit()
-    print("Aggregates updated successfully.")
+    total_rows_affected = 0
+    try:
+        with conn.cursor() as cur:
+            for interval in ['1m', '1h', '1d']:
+                table_name = f"data_{interval}" # e.g., data_1m
+                cur.execute(f"""
+                    INSERT INTO {table_name} (time, user_id, metric_name, avg_value)
+                    SELECT
+                        time_bucket('{interval}', time),
+                        user_id,
+                        metric_name,
+                        AVG(value)
+                    FROM fitbit_data
+                    WHERE time >= %s::date AND time < (%s::date + '1 day'::interval) AND is_imputed = FALSE
+                    GROUP BY 1, 2, 3
+                    ON CONFLICT (time, user_id, metric_name) DO UPDATE
+                    SET avg_value = EXCLUDED.avg_value;
+                """, (day_to_process_str, day_to_process_str))
+                rows_for_interval = cur.rowcount
+                print(f"Inserted/Updated {rows_for_interval} aggregates for interval '{interval}'.")
+                total_rows_affected += rows_for_interval
+            print(f"Inserted {cur.rowcount} aggregates for day {day_to_process_str}.")
+        conn.commit()
+        print("Aggregates updated successfully.")
+        return total_rows_affected
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        conn.rollback()  # Roll back the transaction on error
+        return 0 # Return 0 or raise the exception
             
 
 
@@ -313,7 +324,7 @@ def ingest_data(conn):
         "intraday_hrv": [parse_hrv],
         "sleep": [parse_sleep]
     }
-
+    items_processed = 0
     all_parsed_data = [] 
     all_sleep_data = []
     all_zone_data = []
@@ -361,7 +372,7 @@ def ingest_data(conn):
 
     if not all_parsed_data:
         print("No new data to insert.")
-        return
+        return 0
 
     with conn.cursor() as cur:
         # Use execute_values for efficient bulk insertion
@@ -371,6 +382,7 @@ def ingest_data(conn):
             all_parsed_data
         )
         print(f"-> Inserted {cur.rowcount} new rows for day {day_to_process}.")
+        items_processed += cur.rowcount
     conn.commit()
 
     if all_zone_data:
@@ -381,6 +393,7 @@ def ingest_data(conn):
                 all_zone_data
             )
             print(f"Inserted {cur.rowcount} new zone definitions for day {day_to_process}.")
+            items_processed += cur.rowcount
         conn.commit()
 
     if all_sleep_data:
@@ -391,9 +404,10 @@ def ingest_data(conn):
                 all_sleep_data
             )
             print(f"Bulk insert complete for sleep_summary. Processed {cur.rowcount} new rows for day {day_to_process}.")
+            items_processed += cur.rowcount
         conn.commit()
 
-    update_aggregates(conn, day_str)
+    items_processed+=update_aggregates(conn, day_str)
 
     # --- Update State for Next Run ---
     next_day = day_to_process + 1
@@ -403,6 +417,7 @@ def ingest_data(conn):
     with open(day_file, "w") as f:
         f.write(str(next_day))
     print(f"-> State updated. Next run will process day: {next_day}")
+    return items_processed
 
 # def ingest_data(conn):
 #     print(f"--- Starting daily ingestion run at {datetime.now()} ---")
@@ -441,6 +456,8 @@ if __name__ == "__main__":
     # Setup Prometheus metrics and registry
     error_registry = CollectorRegistry()
     latency_registry = CollectorRegistry()
+    total_registry = CollectorRegistry()
+    throughput_registry = CollectorRegistry()
     
     INGESTION_LATENCY = Gauge(
         'ingestion_latency_seconds', 
@@ -452,8 +469,27 @@ if __name__ == "__main__":
                                'Total number of failed ingestion jobs', 
                                ['error_id'], 
                                registry=error_registry)
+    # A counter for total jobs attempted
+    INGESTION_JOBS_TOTAL = Counter(
+        'ingestion_jobs_total',
+        'Total number of ingestion jobs attempted',
+        registry=total_registry
+    )
+
+    # A gauge for throughput (e.g., items per second)
+    INGESTION_THROUGHPUT = Gauge(
+        'ingestion_throughput_items_per_second',
+        'Number of items processed per second in the last successful job',
+        registry=throughput_registry
+    )
 
     start_time = time.time()
+    
+    # Increment the total jobs counter at the start of every run
+    INGESTION_JOBS_TOTAL.inc()
+    instance_id = datetime.now().isoformat()
+    push_to_gateway('pushgateway:9091', job='ingestion_job_total', registry=total_registry, grouping_key={'instance': instance_id} 
+                    if instance_id else {})
 
     db_url = os.getenv("DATABASE_URL")
     connection = None
@@ -476,7 +512,12 @@ if __name__ == "__main__":
 
     try:
         create_hypertable(connection)
-        ingest_data(connection)
+        items_processed = ingest_data(connection)
+        duration = time.time() - start_time
+        # Avoid division by zero if the job was instant
+        throughput = items_processed / duration if duration > 0 else items_processed
+        INGESTION_THROUGHPUT.set(throughput)
+        push_to_gateway('pushgateway:9091', job='ingestion_job_throughput', registry=throughput_registry)
     except Exception:
         # If any error occurs in the main block, increment the error counter
         error_id = datetime.now().isoformat()
